@@ -19,6 +19,7 @@ export async function fetchBuffets() {
 
     try {
 
+        // Connect to mongo database
         connectToDB();
 
         const buffets = await Buffet.find({});
@@ -36,6 +37,7 @@ export async function fetchBuffet(buffetId: string) {
 
     try {
 
+        // Connect to mongo database
         connectToDB();
 
         const buffet = await JSON.parse(JSON.stringify(await Buffet.findById(buffetId)));
@@ -58,6 +60,7 @@ export async function createBuffet({
 
     try {
 
+        // Connect to mongo database
         connectToDB();
 
         const buffetData = {
@@ -93,6 +96,7 @@ export async function updateBuffet(
 
     try {
 
+        // Connect to mongo database
         connectToDB();
 
         const buffetData = {
@@ -110,5 +114,28 @@ export async function updateBuffet(
 
     } catch (error: any) {
         throw new Error(`Failed to create buffet: ${error.message}`);
+    }
+}
+
+
+// Delete buffet by id
+export async function deleteBuffet(buffetId: string): Promise<void> {
+
+    try {
+
+        // Connect to mongo database
+        connectToDB();
+
+        // Find the buffet to be deleted
+        const buffet = await Buffet.findByIdAndDelete(buffetId);
+
+        if (!buffet) throw new Error("Buffet not found");
+
+        revalidatePath("/buffets");
+        
+        return;
+
+    } catch (error: any) {
+        throw new Error(`Failed to delete buffet: ${error.message}`);
     }
 }
