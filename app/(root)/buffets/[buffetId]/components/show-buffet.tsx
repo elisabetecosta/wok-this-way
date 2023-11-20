@@ -1,16 +1,24 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { Edit } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+
 interface ShowBuffetProps {
     buffet: {
+        _id: string;
         name: string;
         location: string;
         price: number;
         description: string;
     };
-}
+};
 
 
 const ShowBuffet: React.FC<ShowBuffetProps> = ({ buffet }) => {
+
+    const router = useRouter();
 
     return (
 
@@ -32,6 +40,14 @@ const ShowBuffet: React.FC<ShowBuffetProps> = ({ buffet }) => {
                     <p>{buffet.description}</p>
                 </div>
             </div>
+
+            <Button
+                variant="default"
+                size="icon"
+                onClick={() => router.push(`/buffets/${buffet._id}/edit`)}
+            >
+                <Edit className="h-4 w-4" />
+            </Button>
         </div>
     );
 }

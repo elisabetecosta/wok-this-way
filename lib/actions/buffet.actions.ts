@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 import { connectToDB } from "@/lib/mongoose";
 
 import Buffet from "@/lib/models/buffet.model";
@@ -71,6 +73,40 @@ export async function createBuffet({
         const buffetId = buffet._id.toString();
 
         return buffetId;
+
+    } catch (error: any) {
+        throw new Error(`Failed to create buffet: ${error.message}`);
+    }
+}
+
+
+// Update buffet by id
+export async function updateBuffet(
+    buffetId: string,
+    {
+        name,
+        location,
+        description,
+        price
+    }: Params
+) {
+
+    try {
+
+        connectToDB();
+
+        const buffetData = {
+            name,
+            location,
+            description,
+            price
+        };
+
+        await Buffet.findByIdAndUpdate(buffetId, { ...buffetData });
+
+        revalidatePath(`/buffets/${buffetId}`);
+
+        return;
 
     } catch (error: any) {
         throw new Error(`Failed to create buffet: ${error.message}`);
