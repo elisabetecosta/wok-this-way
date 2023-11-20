@@ -22,7 +22,7 @@ export async function fetchBuffets() {
         // Connect to mongo database
         connectToDB();
 
-        const buffets = await Buffet.find({});
+        const buffets = await JSON.parse(JSON.stringify(await Buffet.find({})));
 
         return buffets;
 
