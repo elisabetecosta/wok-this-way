@@ -20,3 +20,19 @@ export async function fetchBuffets() {
         throw new Error(`Failed to fetch buffets: ${error.message}`);
     }
 }
+
+
+// Fetch buffet by id
+export async function fetchBuffet(buffetId: string) {
+
+    try {
+
+        connectToDB();
+
+        const buffet = await JSON.parse(JSON.stringify(await Buffet.findById(buffetId)));
+        return buffet;
+
+    } catch (error: any) {
+        throw new Error(`Failed to fetch buffet: ${error.message}`);
+    }
+}
