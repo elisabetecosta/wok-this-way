@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Edit, Trash } from "lucide-react";
 
+import { Buffet } from "@/types";
+
 import { deleteBuffet } from "@/lib/actions/buffet.actions";
 
 import { AlertModal } from "@/components/alert-modal";
@@ -11,13 +13,7 @@ import { Button } from "@/components/ui/button";
 
 
 interface ShowBuffetProps {
-    buffet: {
-        _id: string;
-        name: string;
-        location: string;
-        price: number;
-        description: string;
-    };
+    buffet: Buffet;
 };
 
 

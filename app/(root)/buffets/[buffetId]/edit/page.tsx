@@ -4,32 +4,24 @@ import * as z from "zod";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
+import { Buffet } from "@/types";
+
 import { BuffetValidation } from "@/lib/validations/buffet";
 import { fetchBuffet } from "@/lib/actions/buffet.actions";
 import { updateBuffet } from "@/lib/actions/buffet.actions";
 
 import BuffetForm from "@/components/buffet-form";
 
-interface BuffetProps {
-    name: string;
-    location: string;
-    price: number;
-    description: string;
-};
-
 
 export default function EditPage() {
 
+    const router = useRouter();
     const { buffetId } = useParams();
 
     // Ensure buffetId is always a string
     const formattedBuffetId: string = Array.isArray(buffetId) ? buffetId[0] : buffetId;
 
-    console.log(formattedBuffetId)
-
-    const router = useRouter();
-
-    const [buffet, setBuffet] = useState<BuffetProps | undefined>(undefined);
+    const [buffet, setBuffet] = useState<Buffet | undefined>(undefined);
     const [loading, setLoading] = useState(true);
 
 
