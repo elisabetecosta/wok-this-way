@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 
+import wokIcon from "@/public/wok.svg";
+
 
 const links = [
     { name: "Buffets", href: "/buffets" },
@@ -29,10 +31,10 @@ const NavBar: React.FC = () => {
                     <Link href="/">
                         <div className="flex mr-6 md:mr-16">
                             <Image
-                                src="https://flowbite.com/docs/images/logo.svg"
+                                src={wokIcon}
                                 alt="Wok This Way Logo"
-                                height={24}
-                                width={24}
+                                height={36}
+                                width={36}
                             />
                             <span className="ml-2 self-center text-2xl font-semibold whitespace-nowrap hidden sm:block dark:text-white">
                                 Wok This Way
