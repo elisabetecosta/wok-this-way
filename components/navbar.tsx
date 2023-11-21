@@ -48,7 +48,7 @@ const NavBar: React.FC = () => {
                             <li key={link.name}>
                                 <Link href={link.href}>
                                     <div
-                                        className={`text-md transition hover:cursor-pointer hover:text-purple-500/75 dark:hover:text-white/75  ${pathname === link.href
+                                        className={`text-md transition hover:cursor-pointer hover:text-purple-500/75 dark:hover:text-gray-500  ${pathname === link.href
                                             ? "text-purple-700 hover:text-purple-800 font-semibold dark:text-white"
                                             : "text-gray-500 dark:text-gray-300"
                                             }`}
