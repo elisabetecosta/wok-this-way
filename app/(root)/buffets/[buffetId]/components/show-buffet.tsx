@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Edit, Trash } from "lucide-react";
 
-import { Buffet } from "@/types";
+import { Buffet } from "@/lib/models/buffet.model";
 
 import { deleteBuffet } from "@/lib/actions/buffet.actions";
 

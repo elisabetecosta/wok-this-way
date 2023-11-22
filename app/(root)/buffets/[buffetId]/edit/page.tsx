@@ -4,7 +4,7 @@ import * as z from "zod";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
-import { Buffet } from "@/types";
+import { Buffet } from "@/lib/models/buffet.model";
 
 import { BuffetValidation } from "@/lib/validations/buffet";
 import { fetchBuffet } from "@/lib/actions/buffet.actions";
