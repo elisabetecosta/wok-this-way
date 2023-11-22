@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-import { Buffet } from "@/lib/models/buffet.model";
+import Buffet from "@/lib/models/buffet.model";
 
 import { fetchBuffets } from "@/lib/actions/buffet.actions";
 

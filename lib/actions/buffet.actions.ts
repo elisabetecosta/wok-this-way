@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 
 import { connectToDB } from "@/lib/mongoose";
 
-import { BuffetModel } from "@/lib/models/buffet.model";
+import Buffet from "@/lib/models/buffet.model";
 
 interface Params {
     name: string;
@@ -22,7 +22,7 @@ export async function fetchBuffets() {
         // Connect to mongo database
         connectToDB();
 
-        const buffets = await JSON.parse(JSON.stringify(await BuffetModel.find({})));
+        const buffets = await JSON.parse(JSON.stringify(await Buffet.find({})));
 
         return buffets;
 
@@ -40,7 +40,7 @@ export async function fetchBuffet(buffetId: string) {
         // Connect to mongo database
         connectToDB();
 
-        const buffet = await JSON.parse(JSON.stringify(await BuffetModel.findById(buffetId)));
+        const buffet = await JSON.parse(JSON.stringify(await Buffet.findById(buffetId)));
         return buffet;
 
     } catch (error: any) {
@@ -70,7 +70,7 @@ export async function createBuffet({
             price
         };
 
-        const buffet = new BuffetModel(buffetData);
+        const buffet = new Buffet(buffetData);
         await buffet.save();
 
         const buffetId = buffet._id.toString();
@@ -106,7 +106,7 @@ export async function updateBuffet(
             price
         };
 
-        await BuffetModel.findByIdAndUpdate(buffetId, { ...buffetData });
+        await Buffet.findByIdAndUpdate(buffetId, { ...buffetData });
 
         revalidatePath(`/buffets/${buffetId}`);
 
@@ -127,7 +127,7 @@ export async function deleteBuffet(buffetId: string): Promise<void> {
         connectToDB();
 
         // Find the buffet to be deleted
-        const buffet = await BuffetModel.findByIdAndDelete(buffetId);
+        const buffet = await Buffet.findByIdAndDelete(buffetId);
 
         if (!buffet) throw new Error("Buffet not found");
 

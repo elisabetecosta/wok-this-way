@@ -4,12 +4,13 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Edit, Trash } from "lucide-react";
 
-import { Buffet } from "@/lib/models/buffet.model";
+import Buffet from "@/lib/models/buffet.model";
 
 import { deleteBuffet } from "@/lib/actions/buffet.actions";
 
 import { AlertModal } from "@/components/alert-modal";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 
 interface ShowBuffetProps {
@@ -61,6 +62,17 @@ const ShowBuffet: React.FC<ShowBuffetProps> = ({ buffet }) => {
                         <h1 className="text-xl font-bold sm:text-2xl">
                             {buffet.name}
                         </h1>
+
+                        {buffet.images.map((img, index) => (
+                            <div key={index}>
+                                <Image
+                                    src={img.url}
+                                    alt="Buffet Image"
+                                    height={150}
+                                    width={150}
+                                />
+                            </div>
+                        ))}
 
                         <p className="text-sm">{buffet.location}</p>
                     </div>

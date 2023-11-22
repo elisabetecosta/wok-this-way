@@ -37,6 +37,12 @@ const seedDB = async () => {
       description:
         "This is a random description of a random chinese restaurant that will later be changed.",
       price: price,
+      images: [
+        {
+            url: 'https://res.cloudinary.com/dh9isfyyf/image/upload/v1685032691/Wok%20This%20Way%20-%20Default%20Images/wok.cover_ucisey.jpg',
+            filename: 'Wok This Way - Default Images/wok.cover_ucisey'    
+        }
+    ]
     });
 
     // Save the buffet document to the database
