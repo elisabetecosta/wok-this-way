@@ -8,6 +8,7 @@ import Buffet from "@/lib/models/buffet.model";
 
 interface Params {
     name: string;
+    images: { url: string; }[];
     location: string;
     description: string;
     price: number;
@@ -52,6 +53,7 @@ export async function fetchBuffet(buffetId: string) {
 // Create a new buffet
 export async function createBuffet({
     name,
+    images,
     location,
     description,
     price
@@ -65,6 +67,7 @@ export async function createBuffet({
 
         const buffetData = {
             name,
+            images,
             location,
             description,
             price
@@ -88,6 +91,7 @@ export async function updateBuffet(
     buffetId: string,
     {
         name,
+        images,
         location,
         description,
         price
@@ -101,6 +105,7 @@ export async function updateBuffet(
 
         const buffetData = {
             name,
+            images,
             location,
             description,
             price

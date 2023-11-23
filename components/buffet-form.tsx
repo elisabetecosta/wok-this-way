@@ -1,8 +1,14 @@
 "use client";
 
 import * as z from "zod";
+import { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { BuffetValidation } from "@/lib/validations/buffet";
+import Buffet from "@/lib/models/buffet.model";
+import { createBuffet, updateBuffet } from "@/lib/actions/buffet.actions";
 
 import {
     Form,
@@ -16,41 +22,105 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-import { BuffetValidation } from "@/lib/validations/buffet";
+import ImageUpload from "@/components/ui/image-upload";
 
 
-interface FormProps {
-    formTitle: string;
-    defaultValues: {
-        name: string;
-        location: string;
-        description: string;
-        price: number;
-    };
-    onSubmit: (values: z.infer<typeof BuffetValidation>) => Promise<void>;
-    buttonText: string;
+type BuffetFormValues = z.infer<typeof BuffetValidation>;
+
+interface BuffetFormProps {
+    initialData: Buffet | null;
 };
 
 
-const BuffetForm: React.FC<FormProps> = ({ formTitle, defaultValues, onSubmit, buttonText }) => {
+const BuffetForm: React.FC<BuffetFormProps> = ({ initialData }) => {
 
-    const form = useForm<z.infer<typeof BuffetValidation>>({
+    const router = useRouter();
+    const { buffetId } = useParams();
+
+    // Ensure buffetId is always a string
+    const formattedBuffetId: string = Array.isArray(buffetId) ? buffetId[0] : buffetId;
+
+    const [loading, setLoading] = useState(false);
+
+
+    const title = initialData ? "Edit Buffet" : "Create Buffet";
+    const action = initialData ? "Update" : "Create";
+
+
+    const form = useForm<BuffetFormValues>({
         resolver: zodResolver(BuffetValidation),
-        defaultValues
+        defaultValues: initialData ? {
+            ...initialData,
+            price: parseFloat(String(initialData?.price))
+        } : {
+            name: "",
+            images: [],
+            location: "",
+            description: "",
+            price: 0,
+        }
     });
+
+
+    const onSubmit = async (values: BuffetFormValues) => {
+
+        try {
+                        
+            setLoading(true);
+
+            if (initialData) {
+
+                await updateBuffet(formattedBuffetId, values);
+                router.push(`/buffets/${formattedBuffetId}`);
+
+            } else {
+
+                const newBuffetId = await createBuffet(values);
+                router.push(`/buffets/${newBuffetId}`);
+            }
+
+            console.log("Success!");
+
+        } catch (error) {
+            console.error("Failed to submit form.");
+
+        } finally {
+            setLoading(false);
+        }
+    }
 
 
     return (
         <section className="bg-white dark:bg-gray-900">
             <div className="mx-auto max-w-2xl px-4 py-4 lg:py-8">
                 <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
-                    {formTitle}
+                    {title}
                 </h2>
 
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}>
 
-                        <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                        {/* IMAGES */}
+                        <FormField
+                            control={form.control}
+                            name="images"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Images</FormLabel>
+                                    <FormControl>
+                                        <ImageUpload
+                                            value={field.value.map((image) => image.url)}
+                                            disabled={loading}
+                                            onChange={(url) => field.onChange([...field.value, { url }])}
+                                            onRemove={(url) => field.onChange([...field.value.filter((current) => current.url !== url)])}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <div className="grid gap-4 mt-4 sm:grid-cols-2 sm:gap-6">
                             <div className="sm:col-span-2">
 
                                 {/* Name */}
@@ -141,7 +211,7 @@ const BuffetForm: React.FC<FormProps> = ({ formTitle, defaultValues, onSubmit, b
                             // disabled={isSubmitSuccessful}
                             className={`mt-4 inline-flex items-center rounded-lg bg-purple-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-purple-800 focus:ring-4 focus:ring-purple-200 disabled:opacity-40 dark:focus:ring-purple-900 sm:mt-6`}
                         >
-                            {buttonText}
+                            {action}
                         </Button>
                     </form>
                 </Form>

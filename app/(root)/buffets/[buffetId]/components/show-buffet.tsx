@@ -56,52 +56,62 @@ const ShowBuffet: React.FC<ShowBuffetProps> = ({ buffet }) => {
                 loading={loading}
             />
 
-            <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-2">
-                <div className="mt-8 flex justify-between">
-                    <div className="max-w-[35ch] space-y-2">
-                        <h1 className="text-xl font-bold sm:text-2xl">
-                            {buffet.name}
-                        </h1>
+            <section className="relative mx-auto max-w-screen-xl px-4 py-8">
+                <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-2">
 
-                        {buffet.images.map((img, index) => (
-                            <div key={index}>
-                                <Image
-                                    src={img.url}
-                                    alt="Buffet Image"
-                                    height={150}
-                                    width={150}
-                                />
-                            </div>
-                        ))}
+                {/* <Gallery images={buffet.images} /> */}
 
-                        <p className="text-sm">{buffet.location}</p>
-                    </div>
+                    {buffet.images.map((img, index) => (
+                        <div key={index} className="grid grid-cols-1 gap-4">
+                            <Image
+                                src={img.url}
+                                alt="Buffet Image"
+                                height={500}
+                                width={500}
+                            />
+                        </div>
+                    ))}
 
-                    <p className="text-lg font-bold">{buffet.price} €</p>
-                </div>
+                    <div className="mt-8 flex justify-between">
+                        <div className="max-w-[35ch] space-y-2">
+                            <h1 className="text-xl font-bold sm:text-2xl">
+                                {buffet.name}
+                            </h1>
 
-                <div className="mt-4">
-                    <div className="prose max-w-xl">
+                            <p className="text-sm">{buffet.location}</p>
+                        </div>
+
+                        <p className="text-lg font-bold">{buffet.price} €/person</p>
+
                         <p>{buffet.description}</p>
+
+
+
+                        <div>
+                            <Button
+                                variant="default"
+                                size="icon"
+                                onClick={() => router.push(`/buffets/${buffet._id}/edit`)}
+                            >
+                                <Edit className="h-4 w-4" />
+                            </Button>
+
+                            <Button
+                                variant="destructive"
+                                size="icon"
+                                onClick={() => setOpen(true)}
+                            >
+                                <Trash className="h-4 w-4" />
+                            </Button>
+
+                        </div>
                     </div>
 
-                    <Button
-                        variant="default"
-                        size="icon"
-                        onClick={() => router.push(`/buffets/${buffet._id}/edit`)}
-                    >
-                        <Edit className="h-4 w-4" />
-                    </Button>
 
-                    <Button
-                        variant="destructive"
-                        size="icon"
-                        onClick={() => setOpen(true)}
-                    >
-                        <Trash className="h-4 w-4" />
-                    </Button>
+
+
                 </div>
-            </div>
+            </section>
         </>
     );
 }
