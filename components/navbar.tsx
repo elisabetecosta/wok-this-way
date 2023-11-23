@@ -22,7 +22,7 @@ const NavBar: React.FC = () => {
 
     return (
 
-        <nav className="bg-white dark:bg-gray-900 sticky top-0 left-0 w-full border-b border-gray-200 dark:border-gray-600">
+        <nav className="bg-white dark:bg-gray-900 sticky top-0 left-0 z-50 w-full border-b border-gray-200 dark:border-gray-600">
 
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
 
