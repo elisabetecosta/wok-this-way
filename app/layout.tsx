@@ -3,7 +3,9 @@ import { Inter } from "next/font/google";
 
 import "./globals.css";
 
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ToastProvider } from "@/components/providers/toast-provider";
+
 import NavBar from "@/components/navbar";
 import Footer from "@/components/footer";
 
@@ -28,6 +30,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <ToastProvider />
           <div className="flex flex-col min-h-screen">
             <NavBar />
             <div className="flex-grow">

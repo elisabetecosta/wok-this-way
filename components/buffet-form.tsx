@@ -6,6 +6,8 @@ import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import toast from "react-hot-toast";
+
 import { BuffetValidation } from "@/lib/validations/buffet";
 import Buffet from "@/lib/models/buffet.model";
 import { createBuffet, updateBuffet } from "@/lib/actions/buffet.actions";
@@ -44,6 +46,7 @@ const BuffetForm: React.FC<BuffetFormProps> = ({ initialData }) => {
 
 
     const title = initialData ? "Edit Buffet" : "Create Buffet";
+    const toastMessage = initialData ? "Buffet updated." : "Buffet created.";
     const action = initialData ? "Update" : "Create";
 
 
@@ -79,10 +82,10 @@ const BuffetForm: React.FC<BuffetFormProps> = ({ initialData }) => {
                 router.push(`/buffets/${newBuffetId}`);
             }
 
-            console.log("Success!");
+            toast.success(toastMessage);
 
         } catch (error) {
-            console.error("Failed to submit form.");
+            toast.error("Failed to submit form.");
 
         } finally {
             setLoading(false);
