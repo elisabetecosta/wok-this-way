@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import Buffet from "@/lib/models/buffet.model";
 
-import { fetchBuffets } from "@/lib/actions/buffet.actions";
+import { getBuffets } from "@/lib/actions/buffet.actions";
 
 
 export default function BuffetsPage() {
@@ -16,14 +16,14 @@ export default function BuffetsPage() {
 
   useEffect(() => {
 
-    async function getBuffets() {
+    async function fetchBuffets() {
 
-      const buffets = await fetchBuffets();
+      const buffets = await getBuffets();
       setBuffets(buffets);
       setLoading(false);
     };
 
-    getBuffets();
+    fetchBuffets();
 
   }, []);
 

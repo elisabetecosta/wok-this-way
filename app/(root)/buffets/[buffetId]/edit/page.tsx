@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 
 import Buffet from "@/lib/models/buffet.model";
 
-import { fetchBuffet } from "@/lib/actions/buffet.actions";
+import { getBuffet } from "@/lib/actions/buffet.actions";
 
 import BuffetForm from "@/components/buffet-form";
 
@@ -23,14 +23,14 @@ export default function EditPage() {
 
     useEffect(() => {
 
-        async function getBuffet() {
+        async function fetchBuffet() {
 
-            const buffet = await fetchBuffet(formattedBuffetId);
+            const buffet = await getBuffet(formattedBuffetId);
             setBuffet(buffet);
             setLoading(false);
         };
 
-        getBuffet();
+        fetchBuffet();
 
     }, [formattedBuffetId]);
 

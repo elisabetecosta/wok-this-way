@@ -15,8 +15,8 @@ interface Params {
 };
 
 
-// Fetch all buffets
-export async function fetchBuffets() {
+// Get all buffets
+export async function getBuffets() {
 
     try {
 
@@ -28,13 +28,13 @@ export async function fetchBuffets() {
         return buffets;
 
     } catch (error: any) {
-        throw new Error(`Failed to fetch buffets: ${error.message}`);
+        throw new Error(`Failed to get buffets: ${error.message}`);
     }
 }
 
 
-// Fetch buffet by id
-export async function fetchBuffet(buffetId: string) {
+// Get buffet by id
+export async function getBuffet(buffetId: string) {
 
     try {
 
@@ -45,7 +45,7 @@ export async function fetchBuffet(buffetId: string) {
         return buffet;
 
     } catch (error: any) {
-        throw new Error(`Failed to fetch buffet: ${error.message}`);
+        throw new Error(`Failed to get buffet: ${error.message}`);
     }
 }
 
