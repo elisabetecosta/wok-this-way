@@ -10,7 +10,8 @@ import { deleteBuffet } from "@/lib/actions/buffet.actions";
 
 import { AlertModal } from "@/components/alert-modal";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
+
+import Gallery from "./gallery";
 
 
 interface ShowBuffetProps {
@@ -59,57 +60,46 @@ const ShowBuffet: React.FC<ShowBuffetProps> = ({ buffet }) => {
             <section className="relative mx-auto max-w-screen-xl px-4 py-8">
                 <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-2">
 
-                {/* <Gallery images={buffet.images} /> */}
-
-                    {buffet.images.map((img, index) => (
-                        <div key={index} className="grid grid-cols-1 gap-4">
-                            <Image
-                                src={img.url}
-                                alt="Buffet Image"
-                                height={500}
-                                width={500}
-                            />
-                        </div>
-                    ))}
-
-                    <div className="mt-8 flex justify-between">
-                        <div className="max-w-[35ch] space-y-2">
-                            <h1 className="text-xl font-bold sm:text-2xl">
-                                {buffet.name}
-                            </h1>
-
-                            <p className="text-sm">{buffet.location}</p>
-                        </div>
-
-                        <p className="text-lg font-bold">{buffet.price} €/person</p>
-
-                        <p>{buffet.description}</p>
-
-
-
-                        <div>
-                            <Button
-                                variant="default"
-                                size="icon"
-                                onClick={() => router.push(`/buffets/${buffet._id}/edit`)}
-                            >
-                                <Edit className="h-4 w-4" />
-                            </Button>
-
-                            <Button
-                                variant="destructive"
-                                size="icon"
-                                onClick={() => setOpen(true)}
-                            >
-                                <Trash className="h-4 w-4" />
-                            </Button>
-
-                        </div>
+                    <div className="grid grid-cols-1 gap-4">
+                        <Gallery images={buffet.images} />
                     </div>
 
+                    <div className="sticky top-0">
 
+                        <div className="mt-8 flex justify-between">
+                            <div className="max-w-[35ch] space-y-2">
+                                <h1 className="text-xl font-bold sm:text-2xl">
+                                    {buffet.name}
+                                </h1>
+                                <p className="text-sm">{buffet.location}</p>
+                            </div>
+                            <p className="text-lg font-bold">{buffet.price} €/person</p>
+                        </div>
 
+                        <div className="mt-4">
+                            <div className="prose max-w-none">
+                                <p>{buffet.description}</p>
+                            </div>
 
+                            <div className="mt-4 flex gap-2">
+                                <Button
+                                    variant="default"
+                                    size="icon"
+                                    onClick={() => router.push(`/buffets/${buffet._id}/edit`)}
+                                >
+                                    <Edit className="h-4 w-4" />
+                                </Button>
+
+                                <Button
+                                    variant="destructive"
+                                    size="icon"
+                                    onClick={() => setOpen(true)}
+                                >
+                                    <Trash className="h-4 w-4" />
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </>
