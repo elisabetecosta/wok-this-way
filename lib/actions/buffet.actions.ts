@@ -118,7 +118,7 @@ export async function updateBuffet(
         return;
 
     } catch (error: any) {
-        throw new Error(`Failed to create buffet: ${error.message}`);
+        throw new Error(`Failed to update buffet: ${error.message}`);
     }
 }
 
