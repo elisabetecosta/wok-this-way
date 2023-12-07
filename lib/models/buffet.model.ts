@@ -1,6 +1,5 @@
 import mongoose, { Schema, InferSchemaType, Document } from "mongoose";
 
-
 const ImageSchema = new Schema({
     url: {
         type: String,
@@ -37,7 +36,13 @@ const BuffetSchema = new Schema({
     price: {
         type: Number,
         required: true,
-    }
+    },
+    reviews: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Review'
+        }
+    ]
 }, options); // Apply the options to enable virtuals in toJSON
 
 
