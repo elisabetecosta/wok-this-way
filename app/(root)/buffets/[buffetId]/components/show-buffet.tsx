@@ -12,6 +12,7 @@ import { AlertModal } from "@/components/alert-modal";
 import { Button } from "@/components/ui/button";
 
 import Gallery from "./gallery";
+import ReviewForm from "./review-form";
 
 
 interface ShowBuffetProps {
@@ -97,6 +98,10 @@ const ShowBuffet: React.FC<ShowBuffetProps> = ({ buffet }) => {
                                 >
                                     <Trash className="h-4 w-4" />
                                 </Button>
+                            </div>
+
+                            <div className="mt-4">
+                                <ReviewForm buffetId={buffet._id} />
                             </div>
                         </div>
                     </div>
