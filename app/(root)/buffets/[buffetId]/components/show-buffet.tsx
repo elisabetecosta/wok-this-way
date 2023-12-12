@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 
 import Gallery from "./gallery";
 import ReviewForm from "./review-form";
+import ShowReviews from "./show-reviews";
 
 
 interface ShowBuffetProps {
@@ -99,11 +100,22 @@ const ShowBuffet: React.FC<ShowBuffetProps> = ({ buffet }) => {
                                     <Trash className="h-4 w-4" />
                                 </Button>
                             </div>
-
-                            <div className="mt-4">
-                                <ReviewForm buffetId={buffet._id} />
-                            </div>
                         </div>
+                    </div>
+                </div>
+
+                {/* Reviews Section */}
+                <div className="flex flex-col mt-16">
+
+                    <div>
+                        <ReviewForm buffetId={buffet._id} />
+                    </div>
+
+                    <div className="flex mt-8">
+                        {buffet.reviews && buffet.reviews.length
+                            ? <ShowReviews buffetId={buffet._id} reviews={buffet.reviews} />
+                            : <h1>There are no reviews yet. Be the first one to add a review.</h1>
+                        }
                     </div>
                 </div>
             </section>
