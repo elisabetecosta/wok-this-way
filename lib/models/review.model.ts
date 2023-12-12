@@ -1,7 +1,8 @@
 import mongoose, { Schema, InferSchemaType, Document } from "mongoose";
 
 const ReviewSchema = new Schema({
-    body: String,
+    title: String,
+    description: String,
     rating: Number
 });
 
