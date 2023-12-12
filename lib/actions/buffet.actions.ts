@@ -5,6 +5,8 @@ import { revalidatePath } from "next/cache";
 import { connectToDB } from "@/lib/mongoose";
 
 import Buffet from "@/lib/models/buffet.model";
+import Review from "@/lib/models/review.model";
+
 
 interface Params {
     name: string;
@@ -41,8 +43,8 @@ export async function getBuffet(buffetId: string) {
         // Connect to mongo database
         connectToDB();
 
-        const buffet = await JSON.parse(JSON.stringify(await Buffet.findById(buffetId)));
-        return buffet;
+        const buffet = await Buffet.findById(buffetId).populate({ path: "reviews", model: Review });
+        return JSON.parse(JSON.stringify(buffet));
 
     } catch (error: any) {
         throw new Error(`Failed to get buffet: ${error.message}`);
@@ -137,7 +139,7 @@ export async function deleteBuffet(buffetId: string): Promise<void> {
         if (!buffet) throw new Error("Buffet not found");
 
         revalidatePath("/buffets");
-        
+
         return;
 
     } catch (error: any) {

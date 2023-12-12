@@ -1,4 +1,5 @@
 import mongoose, { Schema, InferSchemaType, Document } from "mongoose";
+import Review from "./review.model";
 
 const ImageSchema = new Schema({
     url: {
@@ -40,14 +41,21 @@ const BuffetSchema = new Schema({
     reviews: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Review'
-        }
+            ref: 'Review',
+        },
     ]
 }, options); // Apply the options to enable virtuals in toJSON
 
 
-// Define the Buffet type using InferSchemaType
-type Buffet = InferSchemaType<typeof BuffetSchema> & Document;
+// Define the Buffet type
+type Buffet = {
+    name: string;
+    images: { url: string; }[];
+    location: string;
+    description: string;
+    price: number;
+    reviews: Review['_id'][];
+} & Document;
 
 // Create the BuffetModel
 const Buffet = mongoose.models.Buffet || mongoose.model<Buffet>("Buffet", BuffetSchema);
