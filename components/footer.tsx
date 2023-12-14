@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
     return (
         <footer className="bg-white transition dark:bg-gray-900">
             <div className="mx-auto max-w-screen-xl px-4 pb-6 sm:px-6 lg:px-8">
-                <div className="flex flex-col items-center justify-center border-t border-gray-100 pt-8 dark:border-gray-800">
+                <div className="flex flex-col items-center justify-center border-t border-gray-200 pt-8 dark:border-none">
 
                     <ul className="flex gap-4">
 
