@@ -92,7 +92,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ buffetId }) => {
                     </div>
 
 
-                    <div className="mb-2 w-full lg:w-1/4 p-2">
+                    <div className="mb-2 w-full lg:w-1/3 p-2">
                         <FormField
                             control={form.control}
                             name="title"
