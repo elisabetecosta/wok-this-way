@@ -130,16 +130,14 @@ export async function deleteBuffet(buffetId: string): Promise<void> {
 
     try {
 
-        // Connect to mongo database
         connectToDB();
 
-        // Find the buffet to be deleted
         const buffet = await Buffet.findByIdAndDelete(buffetId);
+        const deletedBuffet = JSON.parse(JSON.stringify(buffet));
 
-        if (!buffet) throw new Error("Buffet not found");
+        await Review.deleteMany({ _id: { $in: deletedBuffet.reviews } });
 
         revalidatePath("/buffets");
-
         return;
 
     } catch (error: any) {
