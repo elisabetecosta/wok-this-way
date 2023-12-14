@@ -1,12 +1,13 @@
-type Props = {
-    textColor: string
+interface Props {
+    textSize: string;
+    textColor: string;
 }
 
-const Star = ({ textColor }: Props) => {
+const Star = ({ textSize, textColor }: Props) => {
     
     return (
         <svg
-            className={`h-5 w-5 ${textColor}`}
+            className={`${textSize} ${textColor}`}
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"

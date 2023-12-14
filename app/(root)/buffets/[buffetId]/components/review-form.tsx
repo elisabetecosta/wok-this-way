@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-import Rating from "@/components/ui/rating";
+import RatingInput from "@/components/ui/rating-input";
 
 
 type ReviewFormValues = z.infer<typeof ReviewValidation>;
@@ -77,7 +77,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ buffetId }) => {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
 
-                <div className="mb-4 p-4 w-full rounded-lg border border-gray-200 bg-gray-50 dark:border-gray-600 dark:bg-gray-700">
+                <div className="mb-4 p-4 w-full rounded-lg border border-gray-200 bg-gray-100 dark:border-gray-600 dark:bg-gray-700">
 
                     <div className="w-1/2 p-2">
                         <FormLabel className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
@@ -88,7 +88,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ buffetId }) => {
                             name="rating"
                             value={rating}
                         />
-                        <Rating rating={rating} setRating={setRating} />
+                        <RatingInput rating={rating} setRating={setRating} />
                     </div>
 
 
