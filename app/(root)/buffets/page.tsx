@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 
 import Buffet from "@/lib/models/buffet.model";
 
 import { getBuffets } from "@/lib/actions/buffet.actions";
+import Card from "@/components/ui/card";
 
 
 export default function BuffetsPage() {
@@ -34,18 +34,23 @@ export default function BuffetsPage() {
 
 
   return (
-    <main className="p-4">
-      <h1>All Buffets</h1>
-      <div className="mb-10">
-        {buffets && buffets.length ? (
-          buffets.map((buffet) => (
-            <div key={buffet._id}>
-              <Link href={`/buffets/${buffet._id}`}>
-                <h2 className="text-3xl">{buffet.name}</h2>
-              </Link>
-            </div>
-          ))
-        ) : <h2>No buffets found</h2>}
+    <main className="flex flex-col items-center md:h-full">
+      <div className="w-full">
+        {/* MAPBOX */}
+      </div>
+
+      <div className="w-full">
+        <h1 className="mt-10 text-center text-3xl font-bold text-gray-900 dark:text-white">All Buffets</h1>
+
+        <div className="flex justify-center gap-8 m-10 flex-wrap">
+          {buffets && buffets.length ? (
+            buffets.map((buffet) => (
+              <div key={buffet._id}>
+                <Card buffet={buffet} />
+              </div>
+            ))
+          ) : <h2>No buffets found</h2>}
+        </div>
       </div>
     </main>
   );
