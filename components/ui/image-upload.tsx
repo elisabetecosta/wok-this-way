@@ -77,6 +77,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                             disabled={disabled}
                             variant="secondary"
                             onClick={onClick}
+                            className="dark:bg-gray-950"
                         >
                             <ImagePlus className="mr-2 h-4 w-4" />
                             Upload an Image

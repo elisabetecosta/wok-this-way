@@ -94,11 +94,11 @@ const BuffetForm: React.FC<BuffetFormProps> = ({ initialData }) => {
 
 
     return (
-        <section className="bg-white dark:bg-gray-900">
+        <section className="bg-white dark:bg-gray-800">
             <div className="mx-auto max-w-2xl px-4 py-4 lg:py-8">
-                <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+                <h1 className="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
                     {title}
-                </h2>
+                </h1>
 
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}>
